@@ -26,16 +26,41 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/timestamp", function (req, res) {
   const date = new Date()
-  console.log(date.getTime())
-  console.log(date.toUTCString())
+  // console.log(date.getTime())
+  // console.log(date.toUTCString())
   res.json({
-    unix: date.toUTCString(),
-    utc: date.getTime()
+    unix: date.getTime(),
+    utc: date.toUTCString()
   });
 });
 
+app.get("/api/timestamp/:date_str", function (req, res) {
+  const date_str = req.params.date_str;
+  const date = new Date(date_str)
+  console.log(date)
+  const date_num = parseInt(date)
+  console.log(date_num)
+  // console.log(typeof(date_num))
+  // console.log(date.toUTCString())
+
+  res.json({
+    unix: date.getTime(),
+    utc: date.toUTCString(),
+  });
+});
+
+// app.get("api/timestamp/:date", function (req , res) {
+//   const { date } = req.params;
+//   console.log(date)
+//   console.log(typeof(date))
+//   return res.json({
+//     utc: date.getTime,
+//     greeting: 'kya haal chal'
+//   })
+// })
+
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen(3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
