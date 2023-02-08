@@ -27,8 +27,6 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/timestamp", function (req, res) {
   const date = new Date()
-  // console.log(date.getTime())
-  // console.log(date.toUTCString())
   res.json({
     unix: date.getTime(),
     utc: date.toUTCString()
@@ -45,14 +43,20 @@ app.get("/api/timestamp/:date_str", function (req, res) {
     const date_num = parseInt(date_str)
     console.log(date_num+ "date parsed into number")
     let date = new Date(date_num)
-    console.log(date + "unix into date")
-    res.json({
-      unix: date,
-      utc: date_num
-    })
+    if(date == 'Invalid Date'){
+      res.json({
+        error: "Invalid Date"
+      })
+    }
+    else{
+      res.json({
+        unix: date_num,
+        utc: date
+      })
+    }
+    // console.log(date + "unix into date")
   }
-  // console.log(typeof(date_num))
-  // console.log(date.toUTCString())
+
   else{
     res.json({
       unix: date.getTime(),
@@ -60,17 +64,6 @@ app.get("/api/timestamp/:date_str", function (req, res) {
     });
   }
 });
-
-// app.get("api/timestamp/:date", function (req , res) {
-//   const { date } = req.params;
-//   console.log(date)
-//   console.log(typeof(date))
-//   return res.json({
-//     utc: date.getTime,
-//     greeting: 'kya haal chal'
-//   })
-// })
-
 
 // listen for requests :)
 var listener = app.listen(3000, function () {
