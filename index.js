@@ -43,14 +43,20 @@ app.get("/api/timestamp/:date_str", function (req, res) {
     const date_num = parseInt(date_str)
     console.log(date_num+ "date parsed into number")
     let date = new Date(date_num)
-    console.log(date)
     if(date == 'Invalid Date'){
+      console.log(date+" date not a valid unix")
       res.json({
         error: "Invalid Date"
       })
     }
     else{
-      res.json({ unix: date_num, utc: date.toUTCString })
+      console.log(date+" date is unix")
+      console.log(date_num)
+      console.log(date.toDateString)
+      res.json({
+        unix: date.getTime(),
+        utc: date.toUTCString()
+      });
     }
     // console.log(date + "unix into date")
   }
