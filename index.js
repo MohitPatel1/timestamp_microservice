@@ -33,7 +33,7 @@ app.get("/api/timestamp", function (req, res) {
   });
 });
 
-app.get("/api/timestamp/:date_str", function (req, res) {
+app.get("/api/:date_str", function (req, res) {
   const date_str = req.params.date_str;
   let date = new Date(date_str)
   console.log(date+ "first check")
